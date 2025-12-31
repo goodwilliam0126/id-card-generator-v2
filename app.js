@@ -178,17 +178,20 @@ app.get('/admin', async (req, res) => {
     if(is_available.Token_data[0].role == 'admin') {
         let Admin_Data = await user.AdminData()
         return res.render('admin', { 
-            token: token, // 명시적으로 token 전달
-            User_data: User_data.Token_data, // 데이터 구조에 맞춰 전달
+            token: token,
+            User_data: User_data.Token_data || [],
             admin: true,
-            data: Admin_Data.data
+            data: Admin_Data.data || [],
+            notice: User_data.data && User_data.data[0] ? User_data.data[0].Notice : ""
         })
     }
 
     return res.render('admin', { 
         token: token,
-        User_data: User_data.Token_data,
-        admin: false
+        User_data: User_data.Token_data || [],
+        admin: false,
+        data: [], // 일반 관리자일 때도 빈 배열 전달
+        notice: User_data.data && User_data.data[0] ? User_data.data[0].Notice : ""
     })
 })
 
