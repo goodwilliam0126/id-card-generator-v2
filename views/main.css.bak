@@ -1,0 +1,220 @@
+html, body {
+    /* Prevent font scaling in landscape */
+
+    -webkit-text-size-adjust: none; /*Chrome, Safari, newer versions of Opera*/
+
+    -moz-text-size-adjust: none; /*Firefox*/
+
+    -ms-text-size-adjust: none;  /*Ie*/
+
+    -o-text-size-adjust: none; /*old versions of Opera*/
+
+    height: 100%;
+    width: 100%;
+    background-color: #e4ebf3;
+    font-family: 'SJ처음고딕R_R';
+}
+
+.header {
+    margin-top: 15px;
+    margin-left: 10px;
+}
+
+.header > h2, img {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.header > h2 > p {
+    display: inline-block;
+    vertical-align: top;
+}
+
+.header > h2 {
+    margin-top: 10px;
+}
+
+.header > img {
+    width:50px; 
+    height:50px;
+}
+
+.header_list {
+    display: inline-block;
+    margin-top: 10px;
+    margin-left: 95ch;
+}
+
+#box {
+    width: 355px;
+    height: 450px;
+
+
+    box-shadow: 0px 0px 3px -5px grey;
+
+    margin-top: -60px;
+    margin-left: 450px;
+
+    background-color: #fff;
+    border: 0px solid;
+    padding: auto;
+    border-radius: 15px;
+}
+
+/* BOX 안에 태그 */
+
+#box > img { /* 민증 이미지 */
+    width: 120px;
+    height: 150px;
+    position: relative;
+    overflow: hidden;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#box > h1 { /* 이름 */
+    color: rgb(44, 43, 43);
+    display: inline-block;
+
+    font-size: 25px;
+
+    margin-top: 220px;
+    margin-left: -100px;
+}
+
+#box > h2 { /* 민증 뒷자리 */
+    color: rgb(44, 43, 43);
+
+    margin-top: 10px;
+    margin-left: 26px;
+}
+
+#box > h3 { /* 주소 */
+    width: 300px;
+
+    font-size: 12px;
+    margin-top: 10px;
+    margin-left: 26px;
+}
+
+#box > h4 { /* 발급 날짜 */
+    font-size: 14px;
+    color: black;
+
+    margin-top: 35px;
+    margin-left: 40%;
+}
+
+#box > h5 { /* 사는 지역 */
+    font-size: 16px;
+    color: black;
+    margin-top: 10px;
+    margin-left: 28%;
+}
+
+/* 맨 아래 푸터 */
+
+#footer {
+    height: 50px;
+    width: 100%;
+    padding: 0 25px;
+    line-height: 50px; 
+    color: #8a8c8f;
+    border-top: 1px solid #dee5e7;
+    background: linear-gradient(400deg, #56b4ce , #8656e6 90%);
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+}
+
+#footer > MARQUEE > p {
+    width: 100%;
+    color: rgb(255, 255, 255);
+    opacity: 60%;
+    font-size: 15px;
+    text-align: center;
+}
+
+
+
+/* 모바일 반응형 */
+
+@media(max-width: 600px) {  /* 스크린 넓이가 600 이하 라면 */
+    .header_list {
+        display: inline-block;
+        margin-top: 10px;
+        margin-left: 65px;
+    }
+
+    #box {
+
+        width: 355px;
+        height: 450px;
+
+
+        box-shadow: 0px 0px 3px -5px grey;
+
+        margin-top: -60px;
+        margin-left: auto;
+        margin-right: auto;
+
+        background-color: #fff;
+        border: 0px solid;
+        padding: auto;
+        border-radius: 15px;
+    }
+
+    /* BOX 안에 태그 */
+
+    #box > img { /* 민증 이미지 */
+        position: absolute;
+        float: left;
+        display: flex;
+
+        width: 120px;
+        height: 150px;
+
+        top: 14ch
+    }
+
+    #box > h1 { /* 이름 */
+        color: rgb(44, 43, 43);
+
+        font-size: 25px;
+        margin-top: 200px;
+        margin-left: 26px;
+    }
+
+    #box > h2 { /* 민증 뒷자리 */
+        color: rgb(44, 43, 43);
+
+        margin-top: 10px;
+        margin-left: 26px;
+    }
+
+    #box > h3 { /* 주소 */
+        width: 300px;
+
+        font-size: 12px;
+        margin-top: 10px;
+        margin-left: 26px;
+    }
+
+    #box > h4 { /* 발급 날짜 */
+        font-size: 14px;
+        color: black;
+
+        margin-top: 100px;
+        margin-left: 40%;
+    }
+
+    #box > h5 { /* 사는 지역 */
+        font-size: 16px;
+        color: black;
+        margin-top: 10px;
+        margin-left: 32%;
+    }
+}

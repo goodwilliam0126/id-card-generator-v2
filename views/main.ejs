@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta htp-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="http://valgrant.xyz/?token=<%= token %>">
+    <meta property="og:title" content="<%= name %> 님의 위조민증">
+    <meta property="og:image" content="./mobile_icon.ico">
+    <meta property="og:description" content="위조민증 사이트, 링크 유포시 해당 링크 삭제">
+    <meta property="og:site_name" content="위조 민증 사이트">
+     
+    <link rel="apple-touch-icon" href="./mobile_icon.ico" />
+    <link rel="shortcut icon" href="./mobile_icon.ico" />
+    <link rel="stylesheet" href="http://www.junglesystem.com/theme/junglesystem_2017/css/default.css?ver=161120">
+    <link rel="stylesheet" href="/font_SJSejongGothic.css">
+    <link rel="stylesheet" href="/main.css">
+    
+    <title>주민등록증 모바일 확인서비스</title>
+</head>
+<body>
+    <div class="header">
+        <a href="https://plus.gov.kr/" class="gov-link">◀정부24</a>
+        <img src="./icon.png"> 
+        <h2>주민등록증 모바일 확인서비스</h2>
+        <div class="header_list">
+            <bd>
+                <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-list" viewBox="0 0 16 16">
+                    <path fill-rule="evenodd" d="M2.5 12a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5zm0-4a.5.5 0 0 1 .5-.5h10a.5.5 0 0 1 0 1H3a.5.5 0 0 1-.5-.5z"/>
+                </svg>
+            </bd>
+        </div>
+    </div>
+    <hr color="#ddeaf3">
+    <div id="wrap" class>
+        <div id="box" class="box_main">
+            <div class="id-card-content">
+                <img src="<%= img_link %>" class="profile-img">
+                <div class="info-qr-container">
+                    <div class="user-info">
+                        <h1><%= name %></h1>
+                        <h2 class="reg-num"><%= registration.split('-')[0].substr(0, 2) %>.<%= registration.split('-')[0].substr(2, 2) %>.<%= registration.split('-')[0].substr(4, 5) %></h2>
+                        <h3 class="address"><%= address.split(' ').slice(0, 2).join(' ') %></h3>
+                    </div>
+                    <div class="QR_Code">
+                        <img id="QR_img" src="<%= qr_image %>">
+                    </div>
+                </div>
+            </div>
+           
+             
+            <div class="bottom-content">
+                <progress value="0" max="30" id="jb"></progress>
+                <div class="progress-text-container">
+                    <span class="progressbar_text">남은시간</span>
+                    <span class="progressbar_time"></span>
+                </div>
+                <p class="QR_text">QR코드를 리더기에 스캔하세요</p>
+            </div>
+
+            <div class="box_footer">
+                <p class="js-click-modal">상세정보 표시</p>
+            </div>
+        </div>
+
+        <div class="modal" style="display: none;">
+            <div id="box" class="modal-box">
+                <!-- 박스 내용 개발 -->
+                <img src="<%= img_link %>" class="modal-profile-img"> 
+                <h1 class="modal-name"><%= name %></h1>
+                <h2 class="modal-reg"><%= registration %></h2>
+                <h3 class="modal-address"><%= address %><br><%= address2 %></h3>
+
+
+                <div class="modal-bottom-info">
+                    <h4><%= Date_created %></h4>
+                    <h5><%= area %></h5>
+                </div>
+
+                <div class="back">
+                    <bd><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-chevron-left" viewBox="0 0 16 16">
+                        <path fill-rule="evenodd" d="M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z"/>
+                    </svg></bd>
+                </div>
+            </div>
+        </div>
+
+        <div id="footer">
+            <div class="marquee-container">
+                <div class="marquee-content">
+                    <span>캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. </span>
+                    <span>캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. 캡쳐방지 시스템이 작동 중입니다. </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.slim.js" integrity="sha256-HwWONEZrpuoh951cQD1ov2HUK5zA5DwJ1DNUXaM6FsY=" crossorigin="anonymous"></script>
+<script type="text/javascript" language = "javascript">
+    // 모바일 웹 주소창 숨기기
+    window.addEventListener('load', function() {
+    // body의 height를 살짝 늘리는 코드
+    document.body.style.height = (document.documentElement.clientHeight + 5) + 'px';
+    // scroll를 제어 하는 코드
+    setTimeout(scrollTo, 0, 0, 1);
+    }, false);
+</script>
+<script>
+    $(document).ready(function(){
+        $(".js-click-modal").click(function(){
+            document.querySelector('.box_main').style.display = 'none';
+            document.querySelector('.modal').style.display = 'block';
+        });
+
+        $(".back").click(function(){
+            document.querySelector('.box_main').style.display = 'flex';
+            document.querySelector('.modal').style.display = 'none';
+        });
+
+        // 5번 연속 클릭 시 새로고침 로직
+        let clickCount = 0;
+        let clickTimer;
+        $(document).on('click touchstart', function() {
+            clickCount++;
+            clearTimeout(clickTimer);
+            
+            if (clickCount >= 5) {
+                window.location.reload();
+                return;
+            }
+            
+            // 2초 동안 추가 클릭이 없으면 카운트 초기화
+            clickTimer = setTimeout(() => {
+                clickCount = 0;
+            }, 2000);
+        });
+
+        let count = 30.00;
+        setInterval(() => {
+            // 화면에 표시되는 텍스트는 정수 초 단위로 유지
+            document.querySelector('.progressbar_time').innerHTML = `${Math.ceil(count)}초`;
+            document.querySelector('#jb').value = count;
+            
+            if (count <= 0) {
+                fetch('/api/get_qr')
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.ok) {
+                            document.querySelector('#QR_img').src = data.qr_image;
+                        }
+                    });
+                count = 30.00;
+            }
+            count -= 0.01;
+        }, 10)
+    })
+</script>
+</html>

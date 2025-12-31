@@ -1,0 +1,328 @@
+html, body {
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    height: 100%;
+    width: 100%;
+    background-color: #e4ebf3;
+    font-family: 'SJ처음고딕R_R';
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* 전체 스크롤 차단 */
+    position: fixed; /* 모바일 바운스 방지 */
+}
+
+.header {
+    margin-top: 15px; /* 원래대로 15px로 복구 */
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+    height: 40px;
+}
+
+.header > h2 {
+    margin: -3px 0 0 0;
+    font-size: 1em;
+    color: #333;
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    word-spacing: -2px; /* 요청하신 대로 -2px로 복구 */
+    height: 100%;
+}
+
+.header > img {
+    width: 33px;
+    height: 33px;
+    margin-left: -1px; /* 요청하신 대로 -1px로 설정 */
+    margin-right: 4px; /* 요청하신 대로 4px로 설정 */
+}
+
+#box {
+    width: 355px;
+    height: 550px; /* 높이를 고정값으로 설정하여 통일 */
+    margin: 10px auto;
+    background-color: #fff;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0,0,0,0.1);
+    padding: 20px 20px 0 20px;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+    overflow: hidden;
+}
+
+.id-card-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.profile-img {
+    width: 120px;
+    height: 150px;
+    object-fit: cover;
+    margin-bottom: 15px;
+}
+
+.modal-profile-img {
+    width: 180px; /* 120px * 1.5 */
+    height: 225px; /* 150px * 1.5 */
+    object-fit: cover;
+    display: block;
+    margin: 0 auto 10px auto; /* 하단 마진 축소 */
+}
+
+.modal-box {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    text-align: left;
+    padding: 20px;
+    height: 550px !important; /* 모달 박스 높이 강제 고정 */
+}
+
+.modal-name {
+    font-size: 24px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.modal-reg {
+    font-size: 18px;
+    margin: 5px 0;
+    width: 100%;
+}
+
+.modal-address {
+    font-size: 14px;
+    margin: 5px 0;
+    line-height: 1.2;
+    width: 100%;
+}
+
+.modal-bottom-info {
+    margin-top: auto; /* 하단으로 밀어냄 */
+    width: 100%;
+    text-align: center;
+    padding-bottom: 20px;
+}
+
+.modal-bottom-info h4 {
+    font-size: 16px;
+    color: #333;
+    margin: 10px 0 5px 0;
+}
+
+.modal-bottom-info h5 {
+    font-size: 18px;
+    color: #000;
+    font-weight: bold;
+    margin: 0;
+}
+
+.info-qr-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    padding: 0 0 0 10px; /* 오른쪽 패딩을 제거하여 QR을 더 오른쪽으로 밀어냄 */
+    box-sizing: border-box;
+}
+
+.user-info {
+    text-align: left;
+    flex: 1;
+}
+
+.user-info h1 {
+    font-size: 24px;
+    margin: 0 0 5px 0;
+    color: #333;
+}
+
+.user-info h2 {
+    font-size: 18px;
+    margin: 0 0 5px 0;
+    color: #444;
+}
+
+.user-info h3 {
+    font-size: 14px;
+    margin: 0;
+    color: #666;
+    line-height: 1.4;
+}
+
+.QR_Code {
+    margin-left: 10px;
+    margin-right: -1px; /* 마진을 -1px로 설정 */
+    margin-top: -7px; /* 위로 7px 올림 */
+}
+
+.QR_Code img {
+    width: 115px;
+    height: 115px;
+}
+
+progress {
+    width: 100%;
+    height: 5px;
+    margin-top: 10px; /* 20px에서 10px로 줄임 */
+    border: none; /* 기본 테두리 제거 */
+    background-color: #eee; /* 배경색 설정 */
+    border-radius: 10px;
+    appearance: none; /* 기본 브라우저 스타일 제거 */
+    -webkit-appearance: none;
+}
+
+progress::-webkit-progress-bar {
+    background-color: #eee;
+    border-radius: 10px;
+}
+
+progress::-webkit-progress-value {
+    background: #065bc6;
+    transition: width 0.01s linear;
+    border-radius: 10px;
+    border: none; /* 채워진 부분 테두리 제거 */
+}
+
+progress {
+    transition: value 0.01s linear;
+}
+
+.progress-text-container {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: 5px;
+}
+
+.progressbar_text {
+    font-size: 12px;
+    color: #065bc6;
+}
+
+.progressbar_time {
+    font-size: 12px;
+    color: #065bc6;
+    font-weight: normal; /* 굵은 글씨 제거 */
+}
+
+.QR_text {
+    text-align: center;
+    font-size: 11px;
+    color: #999;
+    margin-top: 3px; /* 5px에서 3px로 줄임 */
+    margin-bottom: 5px; /* 10px에서 5px로 줄임 */
+}
+
+.bottom-content {
+    margin-top: auto; /* 상단 콘텐츠와 하단 콘텐츠 사이의 여백을 여기에 몰아넣음 */
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 0; /* 요소 사이 간격 강제 제거 */
+}
+
+.box_footer {
+    background-color: #065bc6;
+    color: #fff;
+    text-align: center;
+    padding: 20px; /* 패딩을 늘려 버튼을 더 두껍게 조정 */
+    border-radius: 0 0 15px 15px;
+    margin: 15px -20px 0 -20px;
+    cursor: pointer;
+}
+
+.js-click-modal {
+    margin: 0;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+@media (max-width: 600px) {
+    #box {
+        width: 90%;
+        max-width: 355px;
+    }
+    
+    .profile-img {
+        margin-top: 10px;
+    }
+    
+    .user-info {
+        margin-top: 10px;
+    }
+}
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    background: linear-gradient(400deg, #56b4ce , #8656e6 90%);
+    display: flex;
+    align-items: center;
+    z-index: 1000;
+}
+
+.marquee-container {
+    width: 100%;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.marquee-content {
+    display: inline-block;
+    animation: marquee 20s linear infinite;
+    color: #fff;
+    font-weight: normal; /* 굵은 글씨 제거 */
+    font-size: 14px;
+}
+
+.marquee-content span {
+    display: inline-block;
+    padding-right: 0;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.header_list {
+    margin-left: auto;
+    margin-right: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.back {
+    position: absolute;
+    bottom: 20px;
+    left: 20px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 30px;
+    height: 30px;
+    color: #333;
+}
+
+.gov-link {
+    text-decoration: none;
+    color: #333;
+    font-size: 14px;
+    font-weight: bold;
+    margin: -3px 10px 0 0; /* 상단 마진을 음수로 주어 살짝 올림 */
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    height: 100%;
+}

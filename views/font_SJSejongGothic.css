@@ -1,0 +1,28 @@
+@font-face {
+  font-family: 'SJ세종고딕B';
+  font-style: normal;
+  src: url(./font/AppleSDGothicNeoEB.ttf);
+  src: url(./font/AppleSDGothicNeoEB.ttf?#iefix) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'SJ세종고딕EB';
+  src: url(./font/AppleSDGothicNeoEB.ttf);
+  src: url(./font/AppleSDGothicNeoEB.ttf?#iefix) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'SJ세종고딕L';
+  src: url(./font/eot/AppleSDGothicNeoEB.ttf);
+  src: url(./font/eot/AppleSDGothicNeoEB.ttf?#iefix) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'SJ세종고딕R';
+  src: url(./font/eot/AppleSDGothicNeoEB.ttf);
+  src: url(./font/eot/AppleSDGothicNeoEB.ttf?#iefix) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype");
+}
+@font-face {
+  font-family: 'SJ세종고딕B';
+  src: url(./font/AppleSDGothicNeoEB.ttf);
+  src: url(./font/AppleSDGothicNeoEB.ttf?#iefix) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype"), url(./font/AppleSDGothicNeoEB.ttf) format("truetype");
+}
+
+/*# sourceMappingURL=font_SJSejongGothic.css.map */
