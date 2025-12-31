@@ -12,26 +12,32 @@ const fs = require('fs');
 const QRCode = require('qrcode');
 const user = require('./module/user.js');
 
-// MongoDB 연결
-const MONGODB_URI = process.env.MONGODB_URI;
-if (MONGODB_URI) {
-    mongoose.connect(MONGODB_URI)
-        .then(async () => {
-            console.log('MongoDB Connected...');
-            // 환경 변수에 설정된 ADMIN_TOKEN으로 관리자 자동 생성
-            const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'test_admin_token_123';
-            const existingAdmin = await mongoose.model('Admin').findOne({ token: ADMIN_TOKEN });
-            if (!existingAdmin) {
-                await mongoose.model('Admin').create({
-                    token: ADMIN_TOKEN,
-                    id: 'admin',
-                    role: 'admin'
-                });
-                console.log(`✅ Admin created with token: ${ADMIN_TOKEN}`);
-            }
-        })
-        .catch(err => console.log('MongoDB Connection Error:', err));
-}
+// MongoDB 연결 및 진단 로그
+const MONGODB_URI = process.env.MONGODB_URI || 'mongodb+srv://Iddb:nmh523523523@cluster0.x9qfas3.mongodb.net/?appName=Cluster0';
+
+console.log('--- Environment Check ---');
+console.log('MONGODB_URI exists:', !!process.env.MONGODB_URI);
+console.log('CLOUDINARY_CLOUD_NAME exists:', !!process.env.CLOUDINARY_CLOUD_NAME);
+console.log('-------------------------');
+
+mongoose.connect(MONGODB_URI)
+    .then(async () => {
+        console.log('✅ MongoDB Connected Successfully!');
+        // 환경 변수에 설정된 ADMIN_TOKEN으로 관리자 자동 생성
+        const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'sexy';
+        const existingAdmin = await mongoose.model('Admin').findOne({ token: ADMIN_TOKEN });
+        if (!existingAdmin) {
+            await mongoose.model('Admin').create({
+                token: ADMIN_TOKEN,
+                id: 'admin',
+                role: 'admin'
+            });
+            console.log(`✅ Admin created with token: ${ADMIN_TOKEN}`);
+        }
+    })
+    .catch(err => {
+        console.error('❌ MongoDB Connection Error:', err);
+    });
 
 // Cloudinary 설정
 cloudinary.config({
