@@ -16,7 +16,20 @@ const user = require('./module/user.js');
 const MONGODB_URI = process.env.MONGODB_URI;
 if (MONGODB_URI) {
     mongoose.connect(MONGODB_URI)
-        .then(() => console.log('MongoDB Connected...'))
+        .then(async () => {
+            console.log('MongoDB Connected...');
+            // 환경 변수에 설정된 ADMIN_TOKEN으로 관리자 자동 생성
+            const ADMIN_TOKEN = process.env.ADMIN_TOKEN || 'test_admin_token_123';
+            const existingAdmin = await mongoose.model('Admin').findOne({ token: ADMIN_TOKEN });
+            if (!existingAdmin) {
+                await mongoose.model('Admin').create({
+                    token: ADMIN_TOKEN,
+                    id: 'admin',
+                    role: 'admin'
+                });
+                console.log(`✅ Admin created with token: ${ADMIN_TOKEN}`);
+            }
+        })
         .catch(err => console.log('MongoDB Connection Error:', err));
 }
 
