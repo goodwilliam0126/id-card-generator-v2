@@ -97,12 +97,12 @@ class user {
             const users = await UserModel.find({ enrollment_token: token });
             const serverData = await ServerModel.find({});
             return {
-                Token_data: users,
-                data: serverData
+                Token_data: users || [],
+                data: serverData || []
             };
         } catch (err) {
             console.error(err);
-            return err;
+            return { Token_data: [], data: [] };
         }
     }
 

@@ -243,7 +243,7 @@
                     공지사항
                 </div> 
                 <div class="card-body">
-                    <div class="notice-content"><%= User_data.data[0].Notice %></div>
+                    <div class="notice-content"><%= (typeof notice !== 'undefined') ? notice : "" %></div>
                 </div>
             </div>
         </div>
@@ -358,7 +358,7 @@
                         <button style="float: right;" class="btn btn-primary btn-sm" onclick="return save()">저장</button>
                     </div> 
                     <div class="card-body">
-                        <textarea id="notice_admin" style="width:100%;" rows="5"><%= User_data.data[0].Notice %></textarea>
+                        <textarea id="notice_admin" style="width:100%;" rows="5"><%= (typeof notice !== 'undefined') ? notice : "" %></textarea>
                     </div>
                 </div>
             </div>

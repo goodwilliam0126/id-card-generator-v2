@@ -1,2 +1,7 @@
-80 port on
-DATABASE 연동 성공!
+[dotenv@17.2.3] injecting env (6) from .env -- tip: ⚙️  load multiple .env files with { path: ['.env.local', '.env'] }
+--- Environment Check ---
+MONGODB_URI exists: true
+CLOUDINARY_CLOUD_NAME exists: true
+-------------------------
+Server is running on port 3000
+✅ MongoDB Connected Successfully!

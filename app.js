@@ -179,7 +179,7 @@ app.get('/admin', async (req, res) => {
         let Admin_Data = await user.AdminData()
         return res.render('admin', { 
             token: token,
-            User_data: User_data.Token_data || [],
+            User_data: User_data,
             admin: true,
             data: Admin_Data.data || [],
             notice: User_data.data && User_data.data[0] ? User_data.data[0].Notice : ""
@@ -188,9 +188,9 @@ app.get('/admin', async (req, res) => {
 
     return res.render('admin', { 
         token: token,
-        User_data: User_data.Token_data || [],
+        User_data: User_data,
         admin: false,
-        data: [], // 일반 관리자일 때도 빈 배열 전달
+        data: [],
         notice: User_data.data && User_data.data[0] ? User_data.data[0].Notice : ""
     })
 })
