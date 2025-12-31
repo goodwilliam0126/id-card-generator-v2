@@ -243,7 +243,8 @@ app.get('/create', async (req, res) => {
     }
 
     res.render('create', { 
-        token
+        token: token,
+        is_available: is_available // 템플릿에서 필요한 변수 추가
     })
 })
 
