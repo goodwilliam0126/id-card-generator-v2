@@ -1,202 +1,177 @@
-const { db } = require('../Database/db.js')
-const moment = require('moment');
+const mongoose = require('mongoose');
+
+// MongoDB 스키마 정의
+const userSchema = new mongoose.Schema({
+    enrollment_token: String,
+    token: { type: String, unique: true },
+    name: String,
+    registration: String,
+    address: String,
+    address2: String,
+    Date_created: String,
+    area: String,
+    img_link: String,
+    date: String,
+    expiration_date: String
+});
+
+const adminSchema = new mongoose.Schema({
+    token: { type: String, unique: true },
+    id: String,
+    role: String
+});
+
+const serverSchema = new mongoose.Schema({
+    Notice: String
+});
+
+const UserModel = mongoose.model('User', userSchema);
+const AdminModel = mongoose.model('Admin', adminSchema);
+const ServerModel = mongoose.model('Server', serverSchema);
 
 class user {
     static async GetToken(token) {
-        return new Promise(function(resolve, reject) {
-            db.all('SELECT * FROM User', async (err, data) => {
-                let some = data.some(v => v.token === token)
-                let GetTokens = data.map(v => { 
-                    if(v.token === token) {
-                        return v
-                    }
-                })
-                let TokenData = GetTokens.filter((element, i) => element !== undefined);
-
-                if(some) {
-                    resolve({
-                        Token_data: TokenData
-                    })
-                } else {
-                    resolve('Not Found')
-                }
-            })
-        })
+        try {
+            const data = await UserModel.find({ token: token });
+            if (data.length > 0) {
+                return { Token_data: data };
+            } else {
+                return 'Not Found';
+            }
+        } catch (err) {
+            console.error(err);
+            return 'Not Found';
+        }
     }
 
     static async CreateTokenAvailable(token) {
-        return new Promise(function(resolve, reject) {
-            db.all('SELECT * FROM Admin', async (err, data) => {
-		        let some = data.some(v => v.token === token)
-                let GetTokens = data.map(v => { 
-                    if(v.token === token) {
-                        return v
-                    }
-                })
-                let TokenData = GetTokens.filter((element, i) => element !== undefined);
-
-                if(some) {
-                    resolve({
-                        Token_data: TokenData
-                    })
-                } else {
-                    resolve('Not Found')
-                }
-            })
-        })
+        try {
+            const data = await AdminModel.find({ token: token });
+            if (data.length > 0) {
+                return { Token_data: data };
+            } else {
+                return 'Not Found';
+            }
+        } catch (err) {
+            console.error(err);
+            return 'Not Found';
+        }
     }
 
     static async CreateUsers(expiration_token, token, name, registration, address, address2, Date_created, area, img_link, date, expiration_date) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.run(`INSERT INTO User (enrollment_token, token, name, registration, address, address2, Date_created, area, img_link, date, expiration_date) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`, [expiration_token, token, name, registration, address, address2, Date_created, area, img_link, date, expiration_date])
-                resolve(true)
-            } catch(err) {
-                resolve(err)
-            }
-        })
+        try {
+            const newUser = new UserModel({
+                enrollment_token: expiration_token,
+                token,
+                name,
+                registration,
+                address,
+                address2,
+                Date_created,
+                area,
+                img_link,
+                date,
+                expiration_date
+            });
+            await newUser.save();
+            return true;
+        } catch (err) {
+            console.error(err);
+            return err;
+        }
     }
 
     static async CreateAdmin(token, id, role) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.run(`INSERT INTO Admin (token, id, role) VALUES (?, ?, ?)`, [token, id, role])
-                resolve(true)
-            } catch(err) {
-                resolve(err)
-            }
-        })
+        try {
+            const newAdmin = new AdminModel({ token, id, role });
+            await newAdmin.save();
+            return true;
+        } catch (err) {
+            console.error(err);
+            return err;
+        }
     }
 
     static async AdminGetUser(token) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.all('SELECT * FROM User', async (err, data) => {
-                    let GetTokens = data.map(v => { 
-                        if(v.enrollment_token === token) {
-                            return v
-                        }
-                    })
-                    let TokenData = GetTokens.filter((element, i) => element !== undefined);
-                    db.all('SELECT * FROM Server', async (err, data) => {
-    
-                        resolve({
-                            Token_data: TokenData,
-                            data
-                        })
-                    })
-                })
-            } catch(err) {
-                resolve(err)
-            }
-        })
+        try {
+            const users = await UserModel.find({ enrollment_token: token });
+            const serverData = await ServerModel.find({});
+            return {
+                Token_data: users,
+                data: serverData
+            };
+        } catch (err) {
+            console.error(err);
+            return err;
+        }
     }
 
     static async EditUser(User_data, token) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.all('SELECT * FROM User', async (err, data) => {
-                    let some = data.some(v => v.token === token)
-                    
-                    if(some === false) {
-                        resolve(false)
-                    }
-
-                    if (User_data.img_link) {
-                        db.run(`UPDATE User SET name = ?, registration = ?, address = ?, address2 = ?, Date_created = ?, area = ?, expiration_date = ?, img_link = ? WHERE token = ?`, [User_data.name, User_data.registration, User_data.address, User_data.address2, User_data.Date_created, User_data.area, User_data.expiration_date, User_data.img_link, token])
-                    } else {
-                        db.run(`UPDATE User SET name = ?, registration = ?, address = ?, address2 = ?, Date_created = ?, area = ?, expiration_date = ? WHERE token = ?`, [User_data.name, User_data.registration, User_data.address, User_data.address2, User_data.Date_created, User_data.area, User_data.expiration_date, token])
-                    }
-                    resolve(true)
-                })
-            } catch(err) {
-                resolve(err)
-            }
-        })
+        try {
+            const updateData = { ...User_data };
+            await UserModel.findOneAndUpdate({ token: token }, updateData);
+            return true;
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
     }
 
     static async DeleteUser(token) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.all('SELECT * FROM User', async (err, data) => {
-                    let some = data.some(v => v.token === token)
-                    let GetTokens = data.map(v => { 
-                        if(v.token === token) {
-                            return v
-                        }
-                    })
-                    let TokenData = GetTokens.filter((element, i) => element !== undefined);
-                    
-                    if(some === false) {
-                        resolve({
-                            success: false,
-                            message: 'error'
-                        })
-                    }
-
-                    
-                    db.run(`DELETE FROM User WHERE token = "${token}"`)
-                    resolve({
-                        success: true,
-                        data: TokenData
-                    })
-                })
-            } catch(err) {
-                resolve(err)
-            }
-        })
+        try {
+            const userData = await UserModel.findOne({ token: token });
+            if (!userData) return { success: false, message: 'error' };
+            
+            await UserModel.deleteOne({ token: token });
+            return {
+                success: true,
+                data: [userData]
+            };
+        } catch (err) {
+            console.error(err);
+            return { success: false, message: 'error' };
+        }
     }
 
     static async DeleteAdmin(token) {
-        return new Promise(function(resolve, reject) {
-            try {
-                db.all('SELECT * FROM Admin', async (err, data) => {
-                    let some = data.some(v => v.token === token)
-                    let GetTokens = data.map(v => { 
-                        if(v.token === token) {
-                            return v
-                        }
-                    })
-                    let TokenData = GetTokens.filter((element, i) => element !== undefined);
-                    
-                    if(some === false) {
-                        resolve({
-                            success: false,
-                            message: 'error'
-                        })
-                    }
+        try {
+            const adminData = await AdminModel.findOne({ token: token });
+            if (!adminData) return { success: false, message: 'error' };
 
-                    db.run(`DELETE FROM User WHERE enrollment_token = "${token}"`)
-                    db.run(`DELETE FROM Admin WHERE token = "${token}"`)
-                    resolve({
-                        success: true,
-                        data: TokenData
-                    })
-                })
-            } catch(err) {
-                resolve(err)
-            }
-        })
+            await UserModel.deleteMany({ enrollment_token: token });
+            await AdminModel.deleteOne({ token: token });
+            return {
+                success: true,
+                data: [adminData]
+            };
+        } catch (err) {
+            console.error(err);
+            return { success: false, message: 'error' };
+        }
     }
 
-
     static async AdminData() {
-        return new Promise(function(resolve, reject) {
-            db.all('SELECT * FROM Admin', async (err, data) => {
-                resolve({
-                    success: true,
-                    data
-                })
-            })
-        })
+        try {
+            const admins = await AdminModel.find({});
+            return {
+                success: true,
+                data: admins
+            };
+        } catch (err) {
+            console.error(err);
+            return { success: false, data: [] };
+        }
     }
 
     static async NoticeSave(value) {
-        return new Promise(function(resolve, reject) {
-            db.run(`UPDATE Server SET Notice = ?`, [value])
-            resolve(true)
-        })
+        try {
+            await ServerModel.findOneAndUpdate({}, { Notice: value }, { upsert: true });
+            return true;
+        } catch (err) {
+            console.error(err);
+            return false;
+        }
     }
 }
 
-module.exports = user
+module.exports = user;
