@@ -215,11 +215,11 @@ app.get('/edit', async (req, res) => {
         })
     }
 
-    let users = await user.GetToken(user_token)
+    let userData = await user.GetToken(user_token)
 
     res.render('edit', { 
-        token,
-        users
+        token: token,
+        users: userData // 템플릿에서 'users' 변수를 사용하므로 이름을 맞춰서 전달
     })
 })
 
