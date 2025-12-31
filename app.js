@@ -39,22 +39,37 @@ mongoose.connect(MONGODB_URI)
         console.error('❌ MongoDB Connection Error:', err);
     });
 
-// Cloudinary 설정
-cloudinary.config({
-    cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-    api_key: process.env.CLOUDINARY_API_KEY,
-    api_secret: process.env.CLOUDINARY_API_SECRET
-});
+// Cloudinary 설정 (환경 변수가 있을 때만 활성화)
+let storage;
+if (process.env.CLOUDINARY_CLOUD_NAME) {
+    cloudinary.config({
+        cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
+        api_key: process.env.CLOUDINARY_API_KEY,
+        api_secret: process.env.CLOUDINARY_API_SECRET
+    });
 
-// Cloudinary Storage 설정
-const storage = new CloudinaryStorage({
-    cloudinary: cloudinary,
-    params: {
-        folder: 'id-cards',
-        allowed_formats: ['jpg', 'png', 'jpeg'],
-        public_id: (req, file) => path.basename(file.originalname, path.extname(file.originalname)) + Date.now()
-    },
-});
+    storage = new CloudinaryStorage({
+        cloudinary: cloudinary,
+        params: {
+            folder: 'id-cards',
+            allowed_formats: ['jpg', 'png', 'jpeg'],
+            public_id: (req, file) => path.basename(file.originalname, path.extname(file.originalname)) + Date.now()
+        },
+    });
+} else {
+    // Cloudinary 설정이 없을 경우 로컬 저장소 사용 (임시)
+    storage = multer.diskStorage({
+        destination: (req, file, cb) => {
+            const dir = './views/upload';
+            if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
+            cb(null, dir);
+        },
+        filename: (req, file, cb) => {
+            const ext = path.extname(file.originalname);
+            cb(null, path.basename(file.originalname, ext) + Date.now() + ext);
+        }
+    });
+}
 
 const uploader = multer({ storage: storage, limits: { fileSize: 5 * 1024 * 1024 } });
 
@@ -163,16 +178,16 @@ app.get('/admin', async (req, res) => {
     if(is_available.Token_data[0].role == 'admin') {
         let Admin_Data = await user.AdminData()
         return res.render('admin', { 
-            token,
-            User_data,
+            token: token, // 명시적으로 token 전달
+            User_data: User_data.Token_data, // 데이터 구조에 맞춰 전달
             admin: true,
             data: Admin_Data.data
         })
     }
 
     return res.render('admin', { 
-        token,
-        User_data,
+        token: token,
+        User_data: User_data.Token_data,
         admin: false
     })
 })
